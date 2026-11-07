@@ -9,6 +9,7 @@ import {
     Setting,
     SettingDefinitionItem,
     SettingDefinitionList,
+    setIcon,
 } from "obsidian";
 
 import LanguageToolPlugin from "./main";
@@ -17,6 +18,8 @@ import { cmpIgnoreCase } from "./helpers";
 
 export const SUGGESTIONS = 8;
 const DEFAULT_SECRET_APIKEY = "languagetool-apikey";
+const KOFI_URL = "https://ko-fi.com/ducktapekiller";
+const ISSUES_URL = "https://github.com/DuckTapeKiller/language-tool-advanced/issues";
 
 /**
  * Unfortunately LanguageTool API does not provide a list of supported mother tongues,
@@ -938,6 +941,59 @@ export class LTSettingsTab extends PluginSettingTab {
                     },
                 ],
             },
+            {
+                type: "page",
+                name: "Support",
+                desc: `Ways to support ${this.plugin.manifest.name}, and where to get help.`,
+                items: [
+                    {
+                        name: "Support on Ko-fi",
+                        aliases: ["Donate"],
+                        render: setting => this.renderSupportCard(setting),
+                    },
+                    {
+                        name: "Report a bug or suggest an idea",
+                        desc: "Open an issue on GitHub.",
+                        render: setting => {
+                            setting.controlEl.createEl("a", {
+                                cls: "lt-support-link",
+                                text: "Open issues",
+                                href: ISSUES_URL,
+                            });
+                        },
+                    },
+                    {
+                        name: "Version",
+                        desc: `${this.plugin.manifest.name} ${this.plugin.manifest.version}`,
+                        // A row needs a render to be drawn; this one only shows its name and description
+                        render: () => undefined,
+                    },
+                ],
+            },
         ];
+    }
+
+    /** The Ko-fi card. It fills its row: the row's name stays for settings search only */
+    private renderSupportCard(setting: Setting): void {
+        const { settingEl } = setting;
+        const pluginName = this.plugin.manifest.name;
+        settingEl.empty();
+        settingEl.addClass("lt-support-row");
+        const card = settingEl.createDiv({ cls: "lt-support" });
+        setIcon(card.createDiv({ cls: "lt-support-icon" }), "heart");
+        card.createDiv({ cls: "lt-support-title", text: `Enjoying ${pluginName}?` });
+        const about = card.createEl("p", {
+            text: `${pluginName} is free and open source, made and maintained by DuckTapeKiller. If it is useful to you, you can support its development on `,
+        });
+        // The name is kept on one line, so a narrow screen never breaks it at its hyphen.
+        about.createSpan({ cls: "lt-support-nowrap", text: "Ko-fi" });
+        about.appendText(".");
+        const kofi = card.createEl("a", {
+            cls: "lt-support-button",
+            href: KOFI_URL,
+            attr: { "aria-label": "Support DuckTapeKiller on Ko-fi" },
+        });
+        setIcon(kofi.createSpan({ cls: "lt-support-button-icon" }), "coffee");
+        kofi.createSpan({ text: "Support on Ko-fi" });
     }
 }

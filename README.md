@@ -314,6 +314,7 @@ With "Inject property types" on, Obsidian knows the type of each of these proper
 | Long check notification | Shows a notice while a long manual check runs. |
 | Inject property types | Registers the types of the `lt-` properties. |
 | Copy error logs to clipboard | Copies recent errors, without your API key, for a bug report. |
+| Support | A page with a link to support the plugin on [Ko-fi](https://ko-fi.com/ducktapekiller), a link to report a bug or suggest an idea in the [issues](https://github.com/DuckTapeKiller/language-tool-advanced/issues), and the installed version. |
 
 ## Privacy
 

@@ -320,7 +320,8 @@ const hoverListener = ViewPlugin.fromClass(
         }
 
         mousemove(event: MouseEvent) {
-            const target = event.target instanceof Element ? event.target : null;
+            // instanceOf() also recognises an element of a popout window, which has its own Element
+            const target = event.targetNode?.instanceOf(Element) ? event.targetNode : null;
             if (target?.closest(`.${TOOLTIP_HOST}`)) return this.cancelClose();
             if (!target?.closest(".lt-underline")) {
                 this.cancelOpen();

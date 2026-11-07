@@ -13,6 +13,17 @@ export default tseslint.config(
         },
     },
     ...obsidianmd.configs.recommended,
+    {
+        // Sentence case in UI text. Names the rule does not know are added to the words it
+        // leaves alone; its own lists of brands and acronyms stay as they are.
+        files: ["**/*.ts"],
+        rules: {
+            "obsidianmd/ui/sentence-case": [
+                "warn",
+                { ignoreWords: ["DuckTapeKiller", "Ko-fi", "Spanish", "MB"] },
+            ],
+        },
+    },
     { files: ["**/*.mjs"], ...tseslint.configs.disableTypeChecked },
     // Only the committed bundle is excluded; everything else is linted
     globalIgnores(["node_modules", "main.js"]),

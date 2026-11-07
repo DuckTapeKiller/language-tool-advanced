@@ -35,6 +35,7 @@ await mock.module("obsidian", () => ({
     SecretComponent: Stub,
     Setting: Stub,
     debounce: <T extends unknown[]>(cb: (...args: T) => void) => cb,
+    setIcon: () => undefined,
     requestUrl: async (request: {
         url: string;
         method?: string;
