@@ -6,6 +6,7 @@ import {
     MarkdownView,
     Menu,
     Notice,
+    Platform,
     Plugin,
     PluginManifest,
     setIcon,
@@ -63,6 +64,13 @@ export default class LanguageToolPlugin extends Plugin {
     }
 
     public async onload(): Promise<void> {
+        // Desktop only. The manifest says so, and Obsidian then leaves the plugin unloaded on
+        // a phone or tablet. Where it is loaded there all the same (a copy whose manifest lacks
+        // the flag, mobile emulation on a computer), it used to underline text in the editor
+        // with nothing behind the underlines. On mobile nothing at all is set up: no checking,
+        // no underlines, no commands, no settings, no status bar item, no saved settings.
+        if (Platform.isMobile) return;
+
         // Settings
         await this.settings.load();
         this.addSettingTab(this.settingTab);

@@ -1,7 +1,7 @@
 {
   "id": "language-tool",
   "name": "Language Tool Advanced",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "minAppVersion": "1.13.6",
   "description": "Spelling, grammar and Spanish style checking with LanguageTool, on your own server or LanguageTool's.",
   "author": "DuckTapeKiller",
